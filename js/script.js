@@ -37,33 +37,29 @@ const getCategories=()=>{
         console.error('Error reading data:', error);
     });
 }
-
-const getfoodItems = (categoryKey) => {
-  const foodItemsRef = ref(db, `food`);
-  onValue(foodItemsRef, (snapshot) => {
-    const data = snapshot.val();
-    const container = document.querySelector('.menu-items-container');
-    container.innerHTML = ''; // Clear existing items
-
-    if (data) {
-      const fragment = document.createDocumentFragment();
-      Object.values(data).forEach(item => {
-        const div = document.createElement('div');
-        div.classList.add('food-item');
-        div.innerHTML = `
-          <img src="${item.photo}" alt="${item.name}">
-          <h3>${item.name}</h3>
-          <p>${item.description}</p>
-          <span>Price: <strong>$${item.price}</strong></span>
-        `;
-        fragment.appendChild(div);
-      });
-      container.appendChild(fragment);
-    }
-  }, (error) => {
-    console.error('Error reading data:', error);
-  });
-};
+const getfoodItems=()=>{
+    const foodItemsRef = ref(db, 'food');
+    onValue(foodItemsRef, (snapshot) => {
+        const data = snapshot.val();
+        console.log(data)
+        if (data) {
+            Object.keys(data).forEach(key => {
+                document.querySelector('.menu-items-container').innerHTML += `
+                    <div class="food-item">
+                        <img src="${data[key].photo}" alt="${data[key].name}">
+                        <h3>${data[key].name}</h3>
+                        <p>${data[key].description}</p>
+                        <span>Price: <strong>$${data[key].price}</strong></span>
+                    </div>
+                `;
+            });
+        } else {
+            console.log('No food items found');
+        }
+    }, (error) => {
+        console.error('Error reading data:', error);
+    });
+}
 getCategories();
 // return snapshot.payload.val() ? Object.values(snapshot.payload.val()) : [];
 //         const snapshot = await firstValueFrom(
