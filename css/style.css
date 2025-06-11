@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  width: 100%;
+  height: 60px;
+  background-color: #333;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 0;
+}
+header nav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 50px;
+}
+header nav ul {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+}
+header nav ul li a {
+  text-decoration: none;
+  padding: 10px;
+}
+header nav ul li a:hover img {
+  transform: scale(1.2);
+}
+header nav ul li img {
+  width: 30px;
+  height: 30px;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: 1fr;
+}
+main .menu {
+  width: 100%;
+  height: 100%;
+  background-color: #f4f4f4;
+}
+main .menu .categories-container {
+  width: 80%;
+  margin: 20px auto;
+}
+main .menu .categories-container ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+main .menu .categories-container ul li button {
+  background-color: transparent;
+  border: none;
+  text-decoration: none;
+  padding: 10px;
+  cursor: pointer;
+}
+main .invoice-section {
+  width: 100%;
+  height: 100%;
+  background-color: aqua;
+}
+main .invoice-section .invoice-container {
+  width: 80%;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  position: sticky;
+  top: 70px;
+  margin: 10px auto;
+}
+
+footer {
+  width: 100%;
+  height: 40px;
+  background-color: #333;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}/*# sourceMappingURL=style.css.map */
