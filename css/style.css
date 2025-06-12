@@ -14,6 +14,7 @@ header {
   align-items: center;
   position: sticky;
   top: 0;
+  z-index: 5;
 }
 header nav {
   display: flex;
@@ -40,7 +41,6 @@ header nav ul li img {
 
 main {
   width: 100%;
-  height: 100%;
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-template-rows: 1fr;
@@ -53,13 +53,18 @@ main .menu {
 main .menu .categories-container {
   width: 80%;
   margin: 20px auto;
+  position: sticky;
+  top: 60px;
+  background-color: gray;
+  z-index: 5;
 }
 main .menu .categories-container ul {
   list-style: none;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
+  overflow: hidden;
+  overflow-x: auto;
 }
 main .menu .categories-container ul li button {
   background-color: transparent;
@@ -68,12 +73,85 @@ main .menu .categories-container ul li button {
   padding: 10px;
   cursor: pointer;
 }
-main .invoice-section {
+main .menu .menu-items-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 37px;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: auto;
+}
+main .menu .menu-items-container .food-item {
+  width: 200px;
+  height: 250px;
+  background-color: white;
+  border-radius: 8px 8px 0px 0px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+main .menu .menu-items-container .food-item .food-image {
+  width: 100%;
+  height: 250px;
+}
+main .menu .menu-items-container .food-item .food-image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: fill;
+     object-fit: fill;
+}
+main .menu .menu-items-container .food-item .food-details {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-radius: 0px 40px 0px 0px;
+  height: 100px;
+  background-color: #e19c13;
+  z-index: 2;
+  padding: 10px 0px 0px 10px;
+}
+main .menu .menu-items-container .food-item .food-details h3 {
+  margin-top: 10px;
+  font-size: 1.2em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 95%;
+}
+main .menu .menu-items-container .food-item .food-details p {
+  margin-top: 5px;
+  color: #666;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 95%;
+}
+main .menu .menu-items-container .food-item .food-details strong {
+  color: green;
+}
+main .menu .menu-items-container .food-item .food-details::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -18px;
+  width: 50%;
+  z-index: -1;
+  height: 50%;
+  background-color: transparent;
+  border-bottom-left-radius: 90px 90px;
+  border-left: 15px solid #e19c13;
+  border-bottom: 30px solid #e19c13;
+}
+main .order-section {
   width: 100%;
   height: 100%;
   background-color: aqua;
 }
-main .invoice-section .invoice-container {
+main .order-section .order-container {
   width: 80%;
   background-color: white;
   padding: 20px;
@@ -92,4 +170,38 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (max-width: 480px) {
+  header nav {
+    padding: 0 20px;
+  }
+  main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+  main .menu .categories-container {
+    width: 100%;
+    margin: 0px 0px 20px 0px;
+  }
+  main .menu .menu-items-container {
+    width: 100%;
+    justify-content: center;
+  }
+  main .order-section {
+    width: -moz-fit-content;
+    width: fit-content;
+    position: fixed;
+    z-index: 6;
+    right: -7%;
+    top: 50%;
+    height: -moz-fit-content;
+    height: fit-content;
+    padding: 10px 20px;
+    transform: rotate(-90deg);
+    background-color: rgba(228, 222, 57, 0.4392156863);
+  }
+  main .order-section .order-container {
+    display: none;
+  }
 }/*# sourceMappingURL=style.css.map */

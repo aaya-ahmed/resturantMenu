@@ -14,6 +14,8 @@ header {
     align-items: center;
     position: sticky;
     top: 0;
+    z-index: 5;
+
     nav {
         display: flex;
         justify-content: space-between;
@@ -48,7 +50,6 @@ header {
 
 main {
     width: 100%;
-    height: 100%;
     display: grid;
     grid-template-columns: 3fr 1fr;
     grid-template-rows: 1fr;
@@ -57,35 +58,134 @@ main {
         width: 100%;
         height: 100%;
         background-color: #f4f4f4;
-        .categories-container{
+
+        .categories-container {
             width: 80%;
             margin: 20px auto;
-        ul {
-            list-style: none;
+            position: sticky;
+            top: 60px;
+            background-color: gray;
+            z-index: 5;
+
+            ul {
+                list-style: none;
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                overflow: hidden;
+                overflow-x: auto;
+
+                li {
+                    button {
+                        background-color: transparent;
+                        border: none;
+                        text-decoration: none;
+                        padding: 10px;
+                        cursor: pointer;
+                    }
+                }
+
+            }
+        }
+
+        .menu-items-container {
             display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 37px;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            li{
-                button{
-                    background-color: transparent;
-                    border: none;
-                    text-decoration: none;
-                    padding: 10px;
-                    cursor: pointer;
+            width: 80%;
+            margin: auto;
+
+            .food-item {
+                width: 200px;
+                height: 250px;
+                background-color: white;
+                border-radius: 8px 8px 0px 0px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+                overflow: hidden;
+
+                .food-image {
+                    width: 100%;
+                    height: 250px;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: fill;
+                    }
+
+                }
+
+                .food-details {
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                    border-radius: 0px 40px 0px 0px;
+                    height: 100px;
+                    background-color: #e19c13;
+                    z-index: 2;
+                    padding: 10px 0px 0px 10px;
+
+                    h3 {
+                        margin-top: 10px;
+                        font-size: 1.2em;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        width: 95%;
+                    }
+
+                    p {
+                        margin-top: 5px;
+                        color: #666;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        width: 95%;
+                    }
+
+                    strong {
+                        color: green;
+                    }
+
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        top: -50%;
+                        left: -18px;
+                        width: 50%;
+                        z-index: -1;
+                        height: 50%;
+                        background-color: transparent;
+                        border-bottom-left-radius: 90px 90px;
+                        border-left: 15px solid #e19c13;
+                        border-bottom: 30px solid #e19c13;
+                    }
+
+                    // &::after {
+                    //     content: '';
+                    //     position: absolute;
+                    //     top: -50%;
+                    //     left: 0;
+                    //     border-left: 20px solid white;
+                    //     border-bottom: 20px solid white;
+                    // }
                 }
             }
-        
-        }
         }
     }
 
-    .invoice-section {
+    .order-section {
         width: 100%;
         height: 100%;
         background-color: aqua;
 
-        .invoice-container {
+        .order-container {
             width: 80%;
             background-color: white;
             padding: 20px;
@@ -106,4 +206,44 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media screen and (max-width: 480px) {
+    header{
+        nav{
+            padding: 0 20px;
+        }
+    }
+    main {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+
+        .menu {
+            .categories-container {
+                width: 100%;
+                margin: 0px 0px 20px 0px;
+            }
+
+            .menu-items-container {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        .order-section {
+            width: fit-content;
+            position: fixed;
+            z-index: 6;
+            right: -7%;
+            top: 50%;
+            height: fit-content;
+            padding: 10px 20px;
+            transform: rotate(-90deg);
+            background-color: #e4de3970;
+            .order-container {
+                display: none;
+            }
+        }
+    }
+
 }
