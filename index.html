@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <link rel="stylesheet" href="./css/style.css">
-    <!-- Firebase App (core) -->
-  <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-  <!-- Firebase Realtime Database -->
-  <script type="module"  src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
-    <script type="module" src="./js/script.js"  defer></script>
+
+    <script type="module" src="./js/script.js" defer></script>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 
@@ -18,29 +15,30 @@
         <nav>
             <ul>
                 <li>
-                    <a href="./index.html">
-
-                        <img src="./assets/note.webp" />
+                    <a href="/">
+                        <img id="logo" src="./assets/note.webp" />
                     </a>
                 </li>
             </ul>
             <ul>
                 <li>
-                    <img src="./assets/note.webp" />
-                </li>
-                <li>
-                    <a href="./index.html">
-                        <img src="./assets/note.webp" />
+                    <a href="/" target="_blank" id="whatApp-link">
+                        <img alt="whatsapp-resturant" src="./assets/social.webp" />
                     </a>
                 </li>
                 <li>
-                    <a href="./index.html">
-                        <img src="./assets/note.webp" />
+                    <a href="/" target="_blank" id="facebook-link">
+                        <img alt="facebook-resturant" src="./assets/facebook.webp" />
                     </a>
                 </li>
                 <li>
-                    <a href="./index.html">
-                        <img src="./assets/note.webp" />
+                    <a href="/" target="_blank"  id="youtube-link">
+                        <img alt="youtube-resturant" src="./assets/youtube.webp" />
+                    </a>
+                </li>
+                <li>
+                    <a href="/" target="_blank"  id="instagram-link">
+                        <img alt="instagram-resturant" src="./assets/instagram.webp" />
                     </a>
                 </li>
             </ul>
@@ -49,22 +47,31 @@
     <main>
         <section class="menu">
             <div class="categories-container">
-                <ul>
-                </ul>
             </div>
             <div class="menu-items-container">
             </div>
         </section>
         <section class="order-section">
-            <h1>Order</h1>
+            <button class="order-button">Order</button>
+            <button class="close-order-button">x</button>
             <div class="order-container">
                 <div class="customer-details">
                     <h2>Customer Details</h2>
-                    <p><strong>Name:</strong> John Doe</p>
-                    <p><strong>Email:</strong>
-                    </p>
+                    <form id="order-form" >
+                        <div>
+                            <label for="userName">Name</label>
+                            <input type="text" id="userName" name="name" required autocomplete="name"/>
+                        </div>
+                        <div>
+                            <label for="phoneNumber">Phone Number</label>
+                            <input type="number" name="phoneNumber" required id="phoneNumber"/>
+                        </div>
+                    </form>
                 </div>
+                <div class="order-items">
 
+                </div>
+                <input type="submit" name="createOrder" class="submit" form="order-form"/>
             </div>
         </section>
     </main>
