@@ -79,7 +79,8 @@ main .menu .categories-container {
     margin: 20px auto;
     width: 80%;
     overflow: scroll;
-    display: flex;
+display: flex
+;
     align-items: center;
     justify-content: center;
 }
@@ -134,7 +135,7 @@ main .menu .menu-items-container {
     overflow: auto;
     height: 67vh;
     margin: 20px;
-    display: grid;
+        display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
@@ -359,11 +360,9 @@ footer {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
     }
-
-    main .menu {
-        width: 100%;
-    }
-
+main .menu {
+    width: 100%;
+}
     main .menu .categories-container {
         width: 91%;
         margin: 20px;
