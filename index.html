@@ -53,10 +53,10 @@
         </section>
         <section class="order-section">
             <button class="order-button">Order</button>
-            <button class="close-order-button">x</button>
+            <button class="close-order-button">&times;</button>
             <div class="order-container">
                 <div class="customer-details">
-                    <h2>Customer Details</h2>
+                    <h2>Order Details</h2>
                     <form id="order-form" >
                         <div>
                             <label for="userName">Name</label>
@@ -66,12 +66,19 @@
                             <label for="phoneNumber">Phone Number</label>
                             <input type="number" name="phoneNumber" required id="phoneNumber"/>
                         </div>
+                        <div>
+                            <label for="address">Address</label>
+                            <input type="text" name="address" required id="address"/>
+                        </div>
                     </form>
                 </div>
                 <div class="order-items">
 
                 </div>
-                <input type="submit" name="createOrder" class="submit" form="order-form"/>
+                <div class="order-total">
+                    <h3>Total Price: <span id="total-price">0</span> EGP</h3>
+                </div>
+                <input type="submit" name="createOrder" value="get order" class="submit" form="order-form"/>
             </div>
         </section>
     </main>

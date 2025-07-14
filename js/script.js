@@ -11,7 +11,7 @@ const firebaseConfig = {
   measurementId: "G-ZNC81CREWE"
 };
 var currentOrderId = Math.floor(Math.random() * 1000000000000);
-
+var totalPrice = 0;
 var currentOrder = null;
 const app = initializeApp(firebaseConfig);
 // Initialize Realtime Database
@@ -57,6 +57,12 @@ const setItemToOrder = (item) => {
   let key = item.id
   currentOrder = currentOrder ? { ...currentOrder } : {}
   currentOrder[key] = item;
+  totalPrice = 0
+  for (let key in currentOrder) {
+    const item = currentOrder[key];
+    totalPrice += item.price * item.count;
+  }
+  document.querySelector('#total-price').innerHTML = totalPrice;
 
 }
 const addItemToOrderView = (item) => {
@@ -67,13 +73,20 @@ const addItemToOrderView = (item) => {
   <div class='order-item-image'>
     <img src=${item.photo} alt=${item.name}/>
   </div>
-  <div class='order-item-details'>
-    <span>${item.name}</span>
-    <strong>${item.price}</strong>
-  </div>
   `
+  const detailsContainer = document.createElement('div');
+  detailsContainer.setAttribute('class', 'order-item-details')
+  const details = document.createElement('div');
+  details.innerHTML =
+    `
+      <span>${item.name}</span>
+    <strong>${item.price}</strong>
+  `
+  details.appendChild(numberinput(item))
+  detailsContainer.appendChild(details)
+  itemContainer.appendChild(detailsContainer)
+
   itemContainer.classList.add('order-item');
-  itemContainer.appendChild(numberinput(item))
   container.appendChild(itemContainer)
 }
 function confirmOrder() {
@@ -107,8 +120,11 @@ const numberinput = (item) => {
   addButton.addEventListener('click', () => {
     if (number.innerHTML < 50) {
       const x = document.querySelectorAll(`[data-order-numeric='numeric-${item.id}']`)
+
       x.forEach(y => y.innerHTML = `${++y.innerHTML}`);
       item.count = number.innerHTML;
+      totalPrice += +item.price;
+      document.querySelector('#total-price').innerHTML = totalPrice;
     }
   })
   minusButton.addEventListener('click', () => {
@@ -125,6 +141,8 @@ const numberinput = (item) => {
         removeFromOrder(item)
       }
     }
+    totalPrice -= +item.price;
+    document.querySelector('#total-price').innerHTML = totalPrice;
 
   })
   container.appendChild(addButton)
@@ -136,6 +154,9 @@ const numberinput = (item) => {
 const removeFromOrder = (item) => {
   delete currentOrder[item.id]
   console.log(currentOrder)
+  if (Object.keys(currentOrder).length === 0) {
+    document.querySelector('.submit').style.display = 'none';
+  }
   document.querySelector('.order-items').removeChild(
     document.querySelector(`[data-order-item='order-item-${item.id}']`)
   )
@@ -145,6 +166,7 @@ const createOrderButton = (item) => {
   const orderButton = document.createElement('button');
   orderButton.innerHTML = 'order'
   orderButton.addEventListener('click', () => {
+    document.querySelector('.submit').style.display = 'block';
     const itemcontainer = document.getElementById(`${item.id}`);
     const buttonNode = Array.from(itemcontainer.childNodes).find(node =>
       node.nodeType === Node.ELEMENT_NODE && node.tagName === 'BUTTON'
@@ -204,25 +226,25 @@ const toggleOrderView = () => {
     const orderButton = document.querySelector('.order-button');
     if (orderButton) {
       orderButton.style.display = 'none';
+      document.querySelector('.close-order-button').style.display = 'block';
       document.querySelector('.close-order-button').classList.add('active-close-order-button');
       document.querySelector('.order-container').classList.add('active-order-container');
       document.querySelector('.order-section').classList.add('active-order-section');
     }
   });
   document.querySelector('.close-order-button').addEventListener('click', () => {
-
-      closeOrderView()
-    
+    closeOrderView()
   });
 }
 const closeOrderView = () => {
-      const closeOrderButton = document.querySelector('.close-order-button');
-    if (closeOrderButton) {
-      document.querySelector('.order-button').style.display = 'block';
-      document.querySelector('.close-order-button').classList.remove('active-close-order-button');
-      document.querySelector('.order-container').classList.remove('active-order-container');
-      document.querySelector('.order-section').classList.remove('active-order-section');
-    }
+  const closeOrderButton = document.querySelector('.close-order-button');
+  if (closeOrderButton) {
+    document.querySelector('.order-button').style.display = 'block';
+    document.querySelector('.close-order-button').style.display = 'none';
+    document.querySelector('.close-order-button').classList.remove('active-close-order-button');
+    document.querySelector('.order-container').classList.remove('active-order-container');
+    document.querySelector('.order-section').classList.remove('active-order-section');
+  }
 }
 const getlogo = () => {
   const logoRef = ref(db, `logo`);
@@ -254,8 +276,21 @@ document.getElementById('order-form').addEventListener('submit', (event) => {
     currentOrder = { ...Object.fromEntries(new FormData(event.target).entries()), items: currentOrder }
   }
   confirmOrder()
-})
-toggleOrderView();
+});
+function handleResize() {
+  const currentWidth = window.innerWidth;
+  if (currentWidth < 980) {
+    document.querySelector('.order-button').style.display = 'block';
+    document.querySelector('.close-order-button').style.display = 'none';
+    toggleOrderView();
+  } else {
+    document.querySelector('.order-button').style.display = 'none';
+    document.querySelector('.close-order-button').style.display = 'none';
+
+  }
+}
+window.addEventListener('resize', handleResize);
+handleResize();
 getlogo();
 getsocialMedia();
 getCategories();
